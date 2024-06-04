@@ -6,15 +6,6 @@ const path = require('path'); // Adicionado para manipulação de caminhos
 const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const {MongoClient, ObjectId} = require("mongodb");
-async function connect(){
-  if(global.db) return global.db;
-    const conn = await MongoClient.connect("mongodb+srv://projetofofoca:QamAsfi0qk1YHzKY@fofoqueiros.myctr.mongodb.net/?retryWrites=true&w=majority&appName=Fofoqueiros");
-  if(!conn) return new Error("Can't connect");
-    global.db = await conn.db("unifor");
-  return global.db;
-}
-
 // Definição do esquema e modelo do usuário
 const userSchema = new mongoose.Schema({
     nome: String,
@@ -42,10 +33,10 @@ app.post('/cadastro-usuario', (req, res) => {
     });
 
     newUser.save()
-        .then(() => res.redirect('/public/G58gerenciamento.html'))
-        .catch(err => res.status(400).send("Erro ao salvar os dados"));
-
+        .then(() => res.redirect('/G58gerenciamento.html'))
+        
 });
+
 
 // Configuração do servidor para escutar em uma porta específica
 const PORT = process.env.PORT || 3000;
